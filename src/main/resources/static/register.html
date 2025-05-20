@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Stephen Addo">
+    <meta name="description" content="An e-voting webapp">
+    <title>Votum//registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="icon" href="VOTUM.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+    <nav class="navbar  navbar-expand-lg bg-success navbar-dark py-2 fixed-top">
+        <div class="container justify-content-space-between">
+            <img class="navbar-brand" id="logo" src="VOTUM.png" width="80px" height="80px" alt="">
+
+            <button
+            class="navbar-toggler"
+            type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navmenu" aria-expanded="false"
+            aria-label="toggle navigation"
+            aria-controls="navmenu">
+               <span class="navbar-toggler-icon"><span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul id="menu" class="navbar-nav ms-auto text-light py-4">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="card.html" class="nav-link active">Download Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="lay.html" class="nav-link">Candidate Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="result1.html" class="nav-link">Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <section id="aspirantCat" class=" p-5">
+        <div class="container">
+                <div>
+                    <h1 class="text-center text-sm-start text-success bold py-2">CANDIDATE VOTING CATALOG</h1>
+                    <div style="padding-left: 40px;">
+                        <p class="lead" style="padding-bottom: 30px;">
+                            An applicant is required of the following:
+                        </p>
+                        <p class="tabtext2" style="padding-left: 50px;padding-bottom: 30px;color: rgb(53, 105, 53);"><b>PROCEDURE 1</b></p>
+                        <p class="tabtext1" style="padding-left: 50px;padding-bottom: 60px;">
+                            Registration applicant must provide his or her name First name, Last name and E-mail address
+                        </p>
+                        <p class="tabtext2" style="padding-left: 50px;padding-bottom: 30px;color: rgb(53, 105, 53);"><b>PROCEDURE 2</b></p>
+                        <p class="tabtext1" style="padding-left: 50px;padding-bottom: 60px;">
+                            Applicant must also provide a password not less than 8-characters
+                        </p>
+                        <p class="tabtext2" style="padding-left: 50px;padding-bottom: 30px;color: rgb(53, 105, 53);"><b>PROCEDURE 3</b></p>
+                        <p class="tabtext1" style="padding-left: 50px;padding-bottom: 30px;">
+                            Submit the completed registration form by clicking on the <b>Submit button</b>.
+                        </p>
+
+                        <button type="button" class="btn btn-primary btn-lg mx-5" data-bs-toggle="modal" data-bs-target="#loginModal">Register</button>
+
+                        <div class="modal fade" id="loginModal"tabindex="0" aria-labelledby="loginModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-center">
+                                <div class="modal-content bg-white">
+                                    <div class="modal-header">
+                                        <div class="modal-title">
+                                            <h1 class="modal-title fs-5" id="loginModaLabel">Register</h1>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        
+                                            <form id="registerform">
+                                            <div class="mb-3">
+                                                <label for="aadharno">Aadhar Number</label>
+                                               <input
+    type="text"
+    class="form-control"
+    id="aadharno"
+    placeholder="Enter Aadhar number here"
+    maxlength="12"
+    required
+/>
+
+                                                
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <label for="dob" class="col-form-label">
+                                                    Date of Birth
+                                                </label>
+                                                <input type="date" class="form-control" id="dob" placeholder="Enter date of birth">
+                                                <p id="ageDisplay" style="font-weight: bold; margin-top: 5px;"></p>
+                                            </div>
+                                            
+
+
+
+                                            <div class="mb-3">
+                                                <label for="email" class="col-form-label">
+                                                    email
+                                                </label>
+                                                <input type="email" class="form-control" id="email" placeholder="Enter email here">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="otp" class="col-form-label">OTP</label>
+                                                <div class="d-flex">
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="otp"
+                                                        placeholder="Enter OTP here"
+                                                        style="flex: 1;"
+                                                    />
+                                                    <button type="button" class="btn btn-secondary ms-2" onclick="sendOtp()">Send OTP</button>
+        </div>
+        <p id="otpStatus" style="margin-top: 5px;"></p>
+    </div>
+                                            
+                                            <div class="mb-3">
+                                                <label for="name" class="col-form-label">
+                                                    name
+                                                </label>
+                                                <input type="txt" class="form-control" id="name" placeholder="Enter name here">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="password" class="col-form-label">Password</label>
+                                                <input type="password" class="form-control" id="password" placeholder="Enter password here" required>
+                                                <small id="passwordHelp" class="form-text text-muted">
+                                                    Password must be at least 8 characters, contain an uppercase letter, a lowercase letter, a number, and a special character.
+                                                </small>
+                                            </div>
+                                            
+                                            
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+
+</div>
+                        <p class="tabtext1" style="padding-top: 80px">
+                            <b><i>Registered applicants must enter their email address and password to login </i></b>
+                        </p>
+                    </div>
+                </div>
+                
+            
+        </div>
+    </section>
+    
+    <section class="bg-primary text-white py-5 d-md-flex">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md">
+                    <div>
+                        <img class="img-fluid w-50 rounded-circle p-4" src="VOTUM.png" alt="">
+                    </div>
+                    <p>
+                        A credible entity that sees to the affairs of a free and fair elections, promote integrity and voter's confidence in election.
+                    </p>
+                </div>
+                <div class="col-md">
+                    <div class="footerlist">
+                        <h2 class="py-5">Overview</h2>
+                        <div class="overfooterlist">
+                            <a href="/">Home</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="login.html">Login</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="voting.html">Voting</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="result1.html">Results</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="about.html">About</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="footerlist">
+                             <h2 class="py-5">Support</h2>
+                             <div class="overfooterlist">
+                                 <a href="contact.html">Contact</a> 
+                             </div>
+                            <div class="overfooterlist">
+                                <a href="feedback.html">Feedback</a>
+                            </div>
+                            <div class="overfooterlist">
+                                <a href="faqs.html">FAQs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md py-5">
+                    <h2>Connect With Us:</h2>
+                    <div class="bicons">
+                        <a href=""><i class="bi bi-envelope-at-fill">G-mail</i></a>
+                        <a href=""><i class="bi bi-facebook">Facebook</i></a>
+                        <a href=""><i class="bi bi-linkedin">LinkedIn</i></a>
+                        <a href=""><i class="bi bi-twitter">Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+    </section>
+    <hr>
+    <footer class="foot">
+       
+        <p>
+           <a href="#">Back to Top</a>
+        </p>
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>

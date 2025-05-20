@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Stephen Addo">
+    <meta name="description" content="An e-voting webapp">
+    <title>Votum // Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #0d6efd;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            /* Add padding to top of body for fixed navbar */
+            padding-top: 100px;
+        }
+
+        .instructions-banner {
+            background-color: blue;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(12, 2, 44, 0.1);
+        }
+
+        .important-date {
+            background-color: rgba(48, 5, 63, 0.2);
+            border-radius: 5px;
+            padding: 8px 15px;
+            margin: 5px 0;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .hero {
+            background: linear-gradient(hsla(257, 94%, 65%, 0.026), #00000007), url('/api/placeholder/1200/600') center center/cover no-repeat;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            color:black;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+        }
+
+        .feature-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            height: 100%;
+            border: none;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .btn-custom {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-section {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .stats-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stats-item h2 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .how-it-works {
+            background-color: #f8f9fa;
+        }
+
+        .step-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .bicons a {
+            display: block;
+            margin-bottom: 10px;
+            transition: transform 0.3s;
+        }
+
+        .bicons a:hover {
+            transform: translateX(5px);
+        }
+
+        .countdown-container {
+            background-color: hwb(251 8% 32% / 0);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px violet;
+        }
+
+        .countdown-box {
+            background-color: var(--primary-color);
+            color:white
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+        .scrolling-banner {
+  width: 100%; /* Full screen */
+  overflow: hidden; /* Hide overflowing content */
+  position: relative;
+  background-color: #f8f9fa09; /* Light background for contrast */
+}
+
+.instructions-banner {
+  display: inline-block;
+  width: auto;
+  padding: 10px 20px;
+  background-color: rgba(255, 217, 0, 0.074); /* Gold color */
+  color: black;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(12, 2, 44, 0.1);
+  animation: scroll-banner 10s linear infinite; /* Scroll speed */
+}
+
+@keyframes scroll-banner {
+  0% {
+    transform: translateX(100%); /* Start from right */
+  }
+  100% {
+    transform: translateX(-100%); /* End at left */
+  }
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-success navbar-dark py-3 fixed-top">
+        <div class="container">
+            <img class="navbar-brand" id="logo" src="VOTUM.png" width="80px" height="80px" alt="Votum Logo">
+
+            <button
+            class="navbar-toggler"
+            type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navmenu" aria-expanded="false"
+            aria-label="toggle navigation"
+            aria-controls="navmenu">
+               <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul id="menu" class="navbar-nav ms-auto text-light py-2">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link active">Home</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a href="card.html" class="nav-link">Download Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="lay.html" class="nav-link">Candidate Catalog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="result1.html" class="nav-link">Result</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Important Instructions Banner -->
+    <div class="scrolling-banner">
+        <div class="instructions-banner">
+          <p><strong>Important Dates:</strong> 
+            Registration Deadline: April 30, 2025 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+            Voting Date: May 15, 2025 (7:00 AM - 7:00 PM)
+          </p>
+        </div>
+      </div>
+      
+   
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <h1 class="display-3 mb-4">Your Voice Matters</h1>
+            <p class="lead mb-5">Experience secure, transparent and accessible voting with Votum - the future of democratic participation</p>
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-8">
+                    <div class="countdown-container" id="countdown-container">
+                        <h2 class="text-dark mb-4">Election Countdown</h2>
+                        <div class="d-flex justify-content-center gap-3">
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-days">00</div>
+                                <div class="countdown-label">Days</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-hours">00</div>
+                                <div class="countdown-label">Hours</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-minutes">00</div>
+                                <div class="countdown-label">Minutes</div>
+                            </div>
+                            <div class="countdown-box">
+                                <div class="countdown-number" id="countdown-seconds">00</div>
+                                <div class="countdown-label">Seconds</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a href="register.html" class="btn btn-success btn-lg btn-custom me-3">Register Now</a>
+                <a href="login.html" class="btn btn-outline-light btn-lg btn-custom">Login</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-success">Why Choose Votum?</h2>
+                <p class="lead">Our e-voting platform combines security, accessibility, and transparency</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-shield-lock feature-icon"></i>
+                            <h3 class="card-title">Secure Voting</h3>
+                            <p class="card-text">Advanced encryption and verification systems ensure your vote remains confidential and tamper-proof.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-laptop feature-icon"></i>
+                            <h3 class="card-title">Vote Anywhere</h3>
+                            <p class="card-text">Cast your vote from anywhere in the world using any device with internet access.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <i class="bi bi-graph-up feature-icon"></i>
+                            <h3 class="card-title">Real-time Results</h3>
+                            <p class="card-text">Access live election results and analytics as soon as voting concludes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="scrolling-banner">
+        <div class="instructions-banner">
+          <p><strong>Important Dates:</strong> 
+            Registration Deadline: April 30, 2025 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+            Voting Date: May 15, 2025 (7:00 AM - 7:00 PM)
+          </p>
+        </div>
+      </div>
+      
+
+    <!-- Stats Section -->
+    <section class="stats-section py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="stats-item">
+                        <h2>1M+</h2>
+                        <p class="lead">Registered Voters</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-item">
+                        <h2>100%</h2>
+                        <p class="lead">Secure Transactions</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-item">
+                        <h2>50+</h2>
+                        <p class="lead">Electoral Events</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-success">How It Works</h2>
+                <p class="lead">Simple, secure, and transparent electoral process</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h3>Register</h3>
+                        <p>Create your account with your Aadhar number and verify your identity</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h3>Verification</h3>
+                        <p>Complete the verification process using OTP and personal details</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h3>Vote</h3>
+                        <p>Cast your vote securely during the scheduled election period</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h3>Track Results</h3>
+                        <p>Access real-time results once the election concludes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Elections Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-success">Upcoming Elections</h2>
+                <p class="lead">Mark your calendar for these important democratic events</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="card-title">National General Election</h3>
+                                <span class="badge bg-danger">Upcoming</span>
+                            </div>
+                            <p class="card-text mb-1"><i class="bi bi-calendar-event me-2"></i> May 15, 2025</p>
+                            <p class="card-text mb-3"><i class="bi bi-clock me-2"></i> 7:00 AM - 7:00 PM</p>
+                            <a href="#" class="btn btn-outline-success">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h3 class="card-title">Local Council Elections</h3>
+                                <span class="badge bg-secondary">Coming Soon</span>
+                            </div>
+                            <p class="card-text mb-1"><i class="bi bi-calendar-event me-2"></i> June 10, 2025</p>
+                            <p class="card-text mb-3"><i class="bi bi-clock me-2"></i> 8:00 AM - 6:00 PM</p>
+                            <a href="#" class="btn btn-outline-secondary">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-success">What People Say</h2>
+                <p class="lead">Feedback from our community of voters</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="/api/placeholder/80/80" class="testimonial-img me-3" alt="User">
+                            <div>
+                                <h5 class="mb-0">Priya Singh</h5>
+                                <small class="text-muted">First-time Voter</small>
+                            </div>
+                        </div>
+                        <p>"The registration process was incredibly straightforward. I appreciated how secure the entire system felt, and being able to vote remotely made participation so convenient."</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="/api/placeholder/80/80" class="testimonial-img me-3" alt="User">
+                            <div>
+                                <h5 class="mb-0">Rahul Mehta</h5>
+                                <small class="text-muted">IT Professional</small>
+                            </div>
+                        </div>
+                        <p>"As someone who works in cybersecurity, I was initially skeptical about e-voting. But Votum's security measures are impressive and give me confidence that my vote is secure and counts."</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="/api/placeholder/80/80" class="testimonial-img me-3" alt="User">
+                            <div>
+                                <h5 class="mb-0">Aisha Patel</h5>
+                                <small class="text-muted">Senior Citizen</small>
+                            </div>
+                        </div>
+                        <p>"I was worried the technology would be difficult, but the interface is very user-friendly. I'm glad I don't have to stand in long lines anymore to exercise my democratic right!"</p>
+                        <div class="text-warning">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-success text-white text-center">
+        <div class="container">
+            <h2 class="display-5 fw-bold mb-4">Ready to Make Your Voice Heard?</h2>
+            <p class="lead mb-5">Join millions of citizens who are shaping the future through secure electronic voting</p>
+            <a href="registration.html" class="btn btn-light btn-lg btn-custom me-3">Register Now</a>
+            <a href="about.html" class="btn btn-outline-light btn-lg btn-custom">Learn More</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="bg-primary text-white py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md">
+                    <div>
+                        <img class="img-fluid w-50 rounded-circle p-4" src="VOTUM.png" alt="Votum Logo">
+                    </div>
+                    <p>
+                        A credible entity that sees to the affairs of a free and fair elections, promote integrity and voter's confidence in election.
+                    </p>
+                </div>
+                <div class="col-md">
+                    <div class="footerlist">
+                        <h2 class="py-4">Overview</h2>
+                        <div class="overfooterlist">
+                            <a href="index.html">Home</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="login.html">Login</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="some.html">Voting</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="result1.html">Results</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="about.html">About</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="footerlist">
+                         <h2 class="py-4">Support</h2>
+                         <div class="overfooterlist">
+                             <a href="contact.html">Contact</a> 
+                         </div>
+                        <div class="overfooterlist">
+                            <a href="feedback.html">Feedback</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="faqs.html">FAQs</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md py-4">
+                    <h2>Connect With Us:</h2>
+                    <div class="bicons">
+                        <a href=""><i class="bi bi-envelope-at-fill"> G-mail</i></a>
+                        <a href=""><i class="bi bi-facebook"> Facebook</i></a>
+                        <a href=""><i class="bi bi-linkedin"> LinkedIn</i></a>
+                        <a href=""><i class="bi bi-twitter"> Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+ 
+               
+           <a href="#">Back to Top</a>
+        </p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    
+    <!-- Countdown Script -->
+    <script>
+        // Set the date we're counting down to (format: year, month-1, day, hour, minute, second)
+        // Note: Months are zero-indexed (January = 0, December = 11)
+        const electionDate = new Date(2025, 4, 15, 7, 0, 0).getTime(); // May 15, 2025 at 7:00 AM
+
+        // Update the countdown every 1 second
+        const countdownTimer = setInterval(function() {
+            // Get current date and time
+            const now = new Date().getTime();
+            
+            // Calculate the time remaining
+            const timeRemaining = electionDate - now;
+            
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            
+            // Display the result
+            document.getElementById("countdown-days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("countdown-hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("countdown-minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("countdown-seconds").innerHTML = seconds.toString().padStart(2, '0');
+            
+            // If the countdown is finished, display a message
+            if (timeRemaining < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown-container").innerHTML = "<h2 class='text-success'>Voting is now open!</h2>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

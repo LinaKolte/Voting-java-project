@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Stephen Addo">
+    <meta name="description" content="An e-voting webapp">
+    <title>Votum</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="icon" href="VOTUM.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+
+    <nav class="navbar  navbar-expand-lg bg-success navbar-dark py-2 fixed-top">
+        <div class="container justify-content-space-between">
+            <img class="navbar-brand" id="logo" src="VOTUM.png" width="80px" height="80px" alt="">
+
+            <button
+            class="navbar-toggler"
+            type="button" 
+            data-bs-toggle="collapse" data-bs-target="#navmenu" aria-expanded="false"
+            aria-label="toggle navigation"
+            aria-controls="navmenu">
+
+            
+               <span class="navbar-toggler-icon"><span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul id="menu" class="navbar-nav ms-auto text-light py-4">
+                   
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="card.html" class="nav-link">Download Card</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="lay.html" class="nav-link">Candidate catalog</a>
+                    </li>
+                    
+
+                    <li class="nav-item">
+                        <a href="result1.html" class="nav-link">Result</a>
+                    </li>
+                    
+                 <li class="nav-item">
+                        <a href="#about" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="bg-light text-dark p-5 text-center  text-sm-start">
+        <div class="container">
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h1 id="weltext">Welcome to <span class="text-warning">Votum</span></h1>
+                    <p class="lead my-4">
+                        An online voting web application that sees to the affairs of conducting a free and fair election online. Promotes integrity, voter's confidence and trust in election results.
+                    </p>
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                    
+                    <div class="modal fade" id="loginModal"tabindex="0" aria-labelledby="loginModal" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-center">
+                            <div class="modal-content bg-white">
+                                <div class="modal-header">
+                                    <div class="modal-title">
+                                        <h1 class="modal-title fs-5" id="loginModal">Login</h1>
+                                    </div>
+                                </div>
+                                <!-- 🔐 Login with Aadhaar + Password + OTP -->
+                                <form id="passwordLoginForm">
+                                    <div class="mb-3">
+                                        <label for="voterId" class="form-label">Your Voter ID</label>
+                                        <input type="text" class="form-control" id="voterId" required>
+                                    </div>
+
+                                    
+                                    <div class="mb-3">
+                                        <label for="aadharPassword" class="form-label">Aadhaar</label>
+                                        <input type="text" class="form-control" id="aadharPassword" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="passwordOtp" class="form-label">OTP</label>
+                                        <input type="text" class="form-control" id="passwordOtp" disabled required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="button" id="sendOtpBtn" class="btn btn-warning">Send OTP</button>
+                                        <button type="submit" id="loginBtn" class="btn btn-primary" disabled>Login</button>
+                                    </div>
+                                </form>
+                                <div class="d-flex align-items-center p-3" id="userProfile" style="display:none;">
+                                <img id="profileImg" src="" alt="User Image" style="width: 40px; height: 40px; border-radius: 50%;">
+                                <div class="ms-2 text-white">
+                                    <div id="profileName"></div>
+                                    <div id="profileVoterId" style="font-size: 12px;"></div>
+                                </div>
+                            </div>               
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img class="img-fluid w-50 d-none d-sm-block" src="VOTUM-removebg-preview.png" alt="">
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-primary text-light py-3 px-5 text-center">
+        <h3>Your Vote, Your Right, Your Power!</h3>
+    </section>
+    <section class=" p-5">
+        <div id="secCard" class="container">
+            <div class="row text-center g-4">
+                <div class="col-md">
+                    <div class="card bg-dark text-light shadow">
+                        <div class="card-body d-flex flex-column justify-content-end text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-display"></i>
+                            </div>
+                            <p class="card-text mb-4">Register Online to Vote</p>
+                            <a id="gridregbtn"  href="registration.html" >HOW TO REGISTER
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="card bg-dark text-light shadow">
+                        <div class="card-body d-flex flex-column justify-content-end text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-people"></i>
+                            </div>
+                            <p class="card-text mb-4">
+                                Candidate Catalog
+                             </p>
+                            <a id="gridaspibtn" href="aspirants.html">ASPIRANTS</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="card bg-dark text-light shadow">
+                        <div class="card-body d-flex flex-column justify-content-end text-center">
+                            <div class="h1 mb-3">
+                                <i class="bi bi-clipboard-data"></i>
+                            </div>
+                            <p class="card-text mb-4">View election results</p>
+                            <a id="gridresbtn" href="result.html">RESULTS</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 
+    The confidence of a voter is factored on the credibility and trustworthynessof an ELECTION RESULT
+    
+    View the profiles of the various categories of ASPIRANTS
+
+    Your VOTE, Your POWER, Your RIGHT
+
+    -->
+    
+    <section id="about" class="p-5">
+        <div class="container">   
+         <div class="text-center text-md-start">
+            <div class="py-5">
+                <h2>About Votum</h2>
+                <p>
+                    A Credible Entity that sees to the affairs of free and fair elections, promotes integrity and voter's confidence in elections.
+                </p>
+            </div>
+            <div class="text-center text-sm-start">
+               <h2>Our Objectives</h2>
+               <ul>
+                   <li><p>Ensuring that election is free and fair electronically.</p></li>
+                   <li><p>Ensuring that voters are eligible to vote only once.</p></li>
+                   <li><p>Providing election results over a secured network. </p></li>
+                   <li><p>Providing confidentiality of voter's voting decisions.</p></li>
+               </ul>
+            </div>
+        </div>
+            <div class="row align-items-center justify-content-between">
+                <div class="col-md text-center text-md-start py-5">
+                    <div class="py-5">
+                        <h2>About Administrator</h2>
+                        <p>
+                            Master Stephen Addo, a technocrat, skilled and well dedicated personel steering the affairs of all elections on Votum webapp currently offering BSc Computer Science at <a style="text-decoration: none;" href="https://www.knust.edu.gh/"><abbr style="text-decoration: none;" title="Kwame Nkrumah University of Science and Technology.">KNUST</abbr></a> 
+                        </p>
+                    </div>
+                    <div class="text-center text-sm-start">
+                        <h2>Core duties:</h2>
+                        <ul>
+                            <li><p>Steers the affairs of elections smoothly ensuring maximum election success.</p></li>
+                            <li><p>Adds valid Candidates and Voters to the system during election. </p></li>
+                            <li><p>Provides voters with ID numbers so they can be eligible to vote.</p></li>
+                            <li><p>Approve and displays elction results.</p></li>
+                        </ul>
+                    </div>
+                    <details id="adminInfo">
+                        <summary>Contact Info</summary>
+                        <div id="admininfo">
+                            <ul>
+                                <li><a href="mailto:animaddosteven03@gmail.com">E-mail address</a></li>
+                                <li><a href="">GitHub</a></li>
+                                <li><a href="">LinkedIn</a></li>
+                                <li><a href="">Microsoft Teams</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+                <div class="col-md py-5 text-center text-md-star">
+                    <img style="border-radius: 8px;margin-top: 20px;"  class="img-fluid" src="voting.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faqs" class="p-5">
+
+        
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <h2 class="text-center py-5 mb-4">Frequently Asked Questions </h2>
+                <div id="faqsAccordion" class="accordion accordion-flush">
+                    <div class="accordion-item">
+                        <h2 id="faqsheadingOne" class="accordion-header">
+                            <button 
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqsOne"
+                            aria-expanded="false"
+                            aria-controls="#faqsOne">What is the ...</button>
+                        </h2>
+                        <div 
+                        id="faqsOne"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="faqsheadingOne"
+                        data-bs-parent="#faqsAccordion">
+                        <div class="accordion-body">fgdfxanvghgjhjn</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 id="faqsheadingTwo" class="accordion-header">
+                            <button 
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqsTwo"
+                            aria-expanded="false"
+                            aria-controls="#faqsTwo">Which is the ...</button>
+                        </h2>
+                        <div 
+                        id="faqsTwo"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="faqsheadingTwo"
+                        data-bs-parent="#faqsAccordion">
+                        <div class="accordion-body">aaaaaaaaaaaadgjhjkjk</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 id="faqsheadingThree" class="accordion-header">
+                            <button 
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqsThree"
+                            aria-expanded="false"
+                            aria-controls="#faqsThree">What is the ...</button>
+                        </h2>
+                        <div 
+                        id="faqsThree"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="faqsheadingThree"
+                        data-bs-parent="#faqsAccordion">
+                        <div class="accordion-body">bbbbbbbbbbshabhjn</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 id="faqsheadingFour" class="accordion-header">
+                            <button 
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqsFour"
+                            aria-expanded="false"
+                            aria-controls="#faqsFour">What is the ...</button>
+                        </h2>
+                        <div 
+                        id="faqsFour"
+                        class="accordion-collapse collapse"
+                        aria-labelledby="faqsheadingFour"
+                        data-bs-parent="#gaqsAccordion">
+                        <div class="accordion-body">cvbavbhhghsfn</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="bg-primary text-white py-5 d-md-flex">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md">
+                    <div>
+                        <img class="img-fluid w-50 rounded-circle p-4" src="VOTUM.png" alt="">
+                    </div>
+                    <p>
+                        A credible entity that sees to the affairs of a free and fair elections, promote integrity and voter's confidence in election.
+                    </p>
+                </div>
+                <div class="col-md">
+                    <div class="footerlist">
+                        <h2 class="py-5">Overview</h2>
+                        <div class="overfooterlist">
+                            <a href="/">Home</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="registration.html">Registration</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="voting.html">Voting</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a href="result.html">Results</a>
+                        </div>
+                        <div class="overfooterlist">
+                            <a
+                            data-bs-target="#about" aria-expanded="false"
+                            aria-label=""
+                            aria-controls="about" 
+                            href="#about">About</a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="footerlist">
+                             <h2 class="py-5">Support</h2>
+                             <div class="overfooterlist">
+                                <a href="contact.html">Contact</a> 
+                            </div>
+                            <div class="overfooterlist">
+                                <a href="feedback.html">Feedback</a>
+                            </div>
+                            <div class="overfooterlist">
+                                <a href="faqs.html">FAQs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md py-5">
+                    <h2>Connect With Us:</h2>
+                    <div class="bicons">
+                        <a href=""><i class="bi bi-envelope-at-fill">G-mail</i></a>
+                        <a href=""><i class="bi bi-facebook">Facebook</i></a>
+                        <a href=""><i class="bi bi-linkedin">LinkedIn</i></a>
+                        <a href=""><i class="bi bi-twitter">Twitter</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <footer class="foot">
+       
+        <p>
+           <a href="#">Back to Top</a>
+        </p>
+    </footer>
+    <script src="login.js"></script>
+</body>
+</html>

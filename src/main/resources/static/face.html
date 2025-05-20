@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Face Verification</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    canvas, img { max-width: 100%; border: 1px solid #ccc; }
+    .alert { display: none; }
+  </style>
+</head>
+<body>
+<div class="container mt-5">
+  <h2 class="text-center">Face Verification</h2>
+
+  <!-- Aadhaar Input -->
+  <div class="form-group text-center">
+    <label for="aadhaarInput"><strong>Enter Aadhaar Number</strong></label>
+    <input type="text" id="aadhaarInput" class="form-control w-50 mx-auto" placeholder="Aadhaar Number" required pattern="\d{12}">
+  </div>
+
+  <div class="row text-center">
+    <!-- Upload Photo -->
+    <div class="col-md-4">
+      <p><strong>Upload PNG Photo</strong></p>
+      <canvas id="uploadCanvas" width="300" height="300"></canvas>
+      <img id="uploadedPhoto" alt="Uploaded image will appear here"/>
+      <input type="file" id="image-upload" accept="image/png" style="display:none;">
+      <button id="upload" class="btn btn-primary mt-2">Upload</button>
+    </div>
+
+    <!-- Webcam Capture -->
+    <div class="col-md-4">
+      <p><strong>Live Camera</strong></p>
+      <video id="video" width="100%" height="300" autoplay></video>
+      <button id="capture" class="btn btn-warning mt-2">Take Photo</button>
+    </div>
+
+    <!-- Captured Photo -->
+    <div class="col-md-4">
+      <p><strong>Captured Photo</strong></p>
+      <canvas id="captureCanvas" width="300" height="300"></canvas>
+      <img id="capturedPhoto" alt="Captured image will appear here"/>
+      <button id="verify" class="btn btn-success mt-2">Verify Photo</button>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="row mt-4">
+    <div class="col text-center">
+      <h3 id="match"></h3>
+      <p id="score"></p>
+      <div class="alert alert-danger" id="errorAlert"></div>
+      <div class="alert alert-warning" id="warningAlert"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+  const video = document.getElementById('video'),
+        captureCanvas = document.getElementById('captureCanvas'),
+        uploadCanvas = document.getElementById('uploadCanvas'),
+        captureContext = captureCanvas.getContext('2d'),
+        uploadContext = uploadCanvas.getContext('2d'),
+        uploadedPhoto = document.getElementById('uploadedPhoto'),
+        capturedPhoto = document.getElementById('capturedPhoto'),
+        imageUploadInput = document.getElementById('image-upload'),
+        errorAlert = document.getElementById('errorAlert'),
+        warningAlert = document.getElementById('warningAlert'),
+        matchText = document.getElementById('match'),
+        scoreText = document.getElementById('score');
+
+  let image1Base64 = "";
+  let image2Base64 = "";
+
+  // Start webcam
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => video.srcObject = stream)
+      .catch(error => console.error("Webcam error:", error));
+  }
+
+  function setImageToCanvas(image, imgElement, canvas, context) {
+    const ratio = image.width / image.height;
+    let newWidth = canvas.width;
+    let newHeight = newWidth / ratio;
+    if (newHeight > canvas.height) {
+      newHeight = canvas.height;
+      newWidth = newHeight * ratio;
+    }
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0, newWidth, newHeight);
+    imgElement.src = canvas.toDataURL("image/png");
+  }
+
+  // Upload button triggers file input
+  document.getElementById('upload').addEventListener('click', () => {
+    imageUploadInput.click();
+  });
+
+  // Handle uploaded PNG
+  imageUploadInput.addEventListener('change', function () {
+    if (this.files && this.files[0]) {
+      const file = this.files[0];
+
+      warningAlert.style.display = "none";
+      errorAlert.style.display = "none";
+
+      if (file.type !== "image/png") {
+        warningAlert.textContent = "Only PNG images are allowed.";
+        warningAlert.style.display = "block";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const img = new Image();
+        img.src = e.target.result;
+        img.onload = () => {
+          setImageToCanvas(img, uploadedPhoto, uploadCanvas, uploadContext);
+          image2Base64 = e.target.result.split(',')[1];
+        };
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Capture from webcam
+  document.getElementById('capture').addEventListener('click', () => {
+    captureContext.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
+    capturedPhoto.src = captureCanvas.toDataURL("image/png");
+    image1Base64 = captureCanvas.toDataURL("image/png").split(',')[1];
+  });
+
+  // Verify and send images
+  document.getElementById('verify').addEventListener('click', () => {
+    const aadhaarInput = document.getElementById("aadhaarInput").value.trim();
+
+    // Reset alerts and result text
+    errorAlert.style.display = "none";
+    warningAlert.style.display = "none";
+    matchText.textContent = "";
+    scoreText.textContent = "";
+
+    if (!aadhaarInput || aadhaarInput.length !== 12 || !/^\d+$/.test(aadhaarInput)) {
+      warningAlert.textContent = "Please enter a valid 12-digit Aadhaar number.";
+      warningAlert.style.display = "block";
+      return;
+    }
+
+    if (!image1Base64 || !image2Base64) {
+      warningAlert.textContent = "Please capture and upload both images before verifying.";
+      warningAlert.style.display = "block";
+      return;
+    }
+
+    // Save both images
+    fetch("http://localhost:8080/api/images/save-images", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        aadhaarNumber: aadhaarInput,
+        image1Name: image1Base64,
+        image2Name: image2Base64
+      })
+    })
+    .then(res => res.text())
+    .then(msg => console.log("Images saved:", msg))
+    .catch(err => console.error("Save failed:", err));
+
+    // Compare faces
+    fetch("http://localhost:8080/api/images/compare", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        image1Name: image1Base64,
+        image2Name: image2Base64
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.error) {
+        errorAlert.textContent = data.error;
+        errorAlert.style.display = "block";
+      } else {
+        const matched = data.match === true;
+
+        matchText.textContent = matched ? "✅ Faces Match you can proceed" : "❌ Faces Do Not Match can not go further";
+        scoreText.textContent = "Confidence Score: " + (data.confidence || "N/A");
+
+        if (matched) {
+          setTimeout(() => {
+            window.location.href = "some.html"; // 🔁 Change to your actual redirect page
+          }, 2000);
+        }
+      }
+    })
+    .catch(err => {
+      console.error("Verification error:", err);
+      errorAlert.textContent = "An error occurred during verification.";
+      errorAlert.style.display = "block";
+    });
+  });
+});
+</script>

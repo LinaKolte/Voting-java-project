@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Downloads/login page/login-page/scripts"
+		}
+	],
+	"settings": {
+		"sqltools.connections": [
+			{
+				"mysqlOptions": {
+					"authProtocol": "default",
+					"enableSsl": "Disabled"
+				},
+				"previewLimit": 50,
+				"server": "localhost",
+				"port": 3306,
+				"driver": "MySQL",
+				"name": "sesrkl",
+				"database": "yuji",
+				"username": "root",
+				"password": "lina@123456789"
+			}
+		],
+		"liveServer.settings.multiRootWorkspaceName": "SpringBootPractice"
+	}
+}
